@@ -1,0 +1,39 @@
+{% extends 'accounts/layout.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <h1>Welcome, {{ user.username }}</h1>
+    <br />
+    {% if bank_account %}
+        <p><strong>Account ID:</strong> {{ bank_account.account_id }}</p>
+        <p><strong>Balance:</strong> ${{ bank_account.balance }}</p>
+        
+        {% if loans %}
+            <h2>Loan Details</h2>
+            <ul>
+                {% for loan in loans %}
+                    <li>
+                        <strong>Loan Amount:</strong> ${{ loan.amount }}<br />
+                        <strong>Total Repayable:</strong> ${{ loan.total_repayable }}<br />
+                        <strong>Status:</strong> {{ loan.status|capfirst }}<br />
+                        <strong>Approved Date:</strong> 
+                        {% if loan.approved_date %}
+                            {{ loan.approved_date|date:"F j, Y, g:i a" }}
+                        {% else %}
+                            Pending
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>You have no loans at the moment.</p>
+        {% endif %}
+    {% else %}
+        <p>You do not have a bank account yet. Please contact support.</p>
+    {% endif %}
+    <br />
+    <p>You are logged in. <a href="{% url 'logout' %}">Logout</a></p>
+    <p>Choose a service from the menu above to get started.</p>
+{% endblock %}

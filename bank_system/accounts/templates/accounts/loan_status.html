@@ -1,0 +1,27 @@
+{% extends 'accounts/layout.html' %}
+
+{% block title %}Loan Status{% endblock %}
+
+{% block content %}
+<h1>Your Loan Requests</h1>
+<table>
+    <tr>
+        <th>Amount</th>
+        <th>Interest Rate (%)</th>
+        <th>Total Repayable</th>
+        <th>Status</th>
+        <th>Request Date</th>
+        <th>Approved Date</th>
+    </tr>
+    {% for loan in loans %}
+    <tr>
+        <td>${{ loan.amount }}</td>
+        <td>{{ loan.interest_rate }}</td>
+        <td>${{ loan.total_repayable }}</td>
+        <td>{{ loan.status }}</td>
+        <td>{{ loan.request_date }}</td>
+        <td>{{ loan.approved_date|default:"N/A" }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

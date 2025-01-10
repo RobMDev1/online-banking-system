@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    {% load static %}
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{% block title %}Simple Bank{% endblock %}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'accounts/styles.css' %}">
+    </head>
+    <body>
+        <nav>
+            <ul class="navbar">
+                <li>
+                    <a href="{% url 'home' %}"><img src="https://www.pngplay.com/wp-content/uploads/6/Bank-Logo-Transparent-PNG.png" alt="Logo" class="logo"></a>
+                </li>
+                <li class="dropdown">
+                    <a href="#">Services</a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{% if account_id %}{% url 'transaction' account_id=account_id %}{% else %}javascript:void(0);{% endif %}">
+                                Deposit/Withdraw
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'request_loan' %}">Loan</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'transfer_money' %}">Transfer Money</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </nav>
+        
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <footer>
+            <div class="footer">
+                <p>&copy; 2024 Simple Bank. All Rights Reserved.</p>
+            </div>
+        </footer>    
+    </body>
+</html>
